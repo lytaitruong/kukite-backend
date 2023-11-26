@@ -1,7 +1,7 @@
 {
-  "name": "kukite",
+  "name": "user-api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/kukite/src",
+  "sourceRoot": "apps/user-api/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -11,12 +11,11 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/apps/kukite",
-        "main": "apps/kukite/src/main.ts",
-        "tsConfig": "apps/kukite/tsconfig.app.json",
-        "assets": ["apps/kukite/src/assets"],
+        "outputPath": "dist/apps/user-api",
+        "main": "apps/user-api/src/main.ts",
+        "tsConfig": "apps/user-api/tsconfig.app.json",
         "isolatedConfig": true,
-        "webpackConfig": "apps/kukite/webpack.config.js"
+        "webpackConfig": "apps/user-api/webpack.config.js"
       },
       "configurations": {
         "development": {},
@@ -27,14 +26,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "kukite:build"
+        "buildTarget": "user-api:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "kukite:build:development"
+          "buildTarget": "user-api:build:development"
         },
         "production": {
-          "buildTarget": "kukite:build:production"
+          "buildTarget": "user-api:build:production"
         }
       }
     },
@@ -42,14 +41,14 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/kukite/**/*.ts"]
+        "lintFilePatterns": ["apps/user-api/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/kukite/jest.config.ts",
+        "jestConfig": "apps/user-api/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
