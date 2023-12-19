@@ -73,12 +73,44 @@ services:
     depends_on:
       - live-postgresql
 
+  video-postgresql:
+    container_name: video-postgresql
+    restart: always
+    image: postgres:16
+    ports:
+      - '3105:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE_USER}
+    networks:
+      - video-postgresql-network
+    volumes:
+      - video-volume:/var/lib/postgresql/data
+
+  video-api:
+    container_name: video-api
+    restart: always
+    ports:
+      - 3005:3005
+    build:
+      context: .
+      dockerfile: ./apps/video-api/Dockerfile
+    env_file: ./apps/video-api/.env
+    networks:
+      - video-postgresql-network
+    depends_on:
+      - video-postgresql
+
 networks:
   user-postgresql-network:
     driver: bridge
   live-postgresql-network:
     driver: bridge
+  video-postgresql-network:
+    driver: bridge
 
 volumes:
   user-volume:
   live-volume:
+  video-volume:
