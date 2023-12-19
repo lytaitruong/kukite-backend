@@ -118,6 +118,35 @@ services:
     depends_on:
       - video-postgresql
 
+  business-postgresql:
+    container_name: business-postgresql
+    restart: always
+    image: postgres:16
+    ports:
+      - '3106:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE_USER}
+    networks:
+      - business-postgresql-network
+    volumes:
+      - business-volume:/var/lib/postgresql/data
+
+  business-api:
+    container_name: business-api
+    restart: always
+    ports:
+      - 3006:3006
+    build:
+      context: .
+      dockerfile: ./apps/business-api/Dockerfile
+    env_file: ./apps/business-api/.env
+    networks:
+      - business-postgresql-network
+    depends_on:
+      - business-postgresql
+
 networks:
   user-postgresql-network:
     driver: bridge
@@ -125,8 +154,11 @@ networks:
     driver: bridge
   video-postgresql-network:
     driver: bridge
+  business-postgresql-network:
+    driver: bridge
 
 volumes:
   user-volume:
   live-volume:
   video-volume:
+  business-volume:

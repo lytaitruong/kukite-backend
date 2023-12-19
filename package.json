@@ -51,7 +51,15 @@
     "prisma:search-data": "npx prisma generate --schema libs/prisma-search/prisma/schema.prisma",
     "create:search-data": "npx prisma migrate dev --schema libs/prisma-search/prisma/schema.prisma",
     "deploy:search-data": "npx prisma migrate deploy --schema libs/prisma-search/prisma/schema.prisma",
-    "studio:search-data": "npx prisma studio deploy --schema libs/prisma-search/prisma/schema.prisma"
+    "studio:search-data": "npx prisma studio deploy --schema libs/prisma-search/prisma/schema.prisma",
+    "build:business-api": "nx build business-api",
+    "serve:business-api": "nx serve business-api",
+    "test:business-api": "nx test business-api",
+    "test:business-e2e": "nx e2e business-e2e",
+    "prisma:business-data": "npx prisma generate --schema libs/prisma-business/prisma/schema.prisma",
+    "create:business-data": "npx prisma migrate dev --schema libs/prisma-business/prisma/schema.prisma",
+    "deploy:business-data": "npx prisma migrate deploy --schema libs/prisma-business/prisma/schema.prisma",
+    "studio:business-data": "npx prisma studio deploy --schema libs/prisma-business/prisma/schema.prisma"
   },
   "private": true,
   "dependencies": {
