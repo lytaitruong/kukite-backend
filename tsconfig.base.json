@@ -16,9 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@libs/prisma-business": ["libs/prisma-business/src/index.ts"],
-      "@libs/prisma-product": ["libs/prisma-product/src/index.ts"],
       "@libs/prisma-live": ["libs/prisma-live/src/index.ts"],
+      "@libs/prisma-product": ["libs/prisma-product/src/index.ts"],
       "@libs/prisma-user": ["libs/prisma-user/src/index.ts"],
+      "@libs/prisma-order": ["libs/prisma-order/src/index.ts"],
       "@libs/prisma-video": ["libs/prisma-video/src/index.ts"]
     }
   },

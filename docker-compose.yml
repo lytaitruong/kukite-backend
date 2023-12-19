@@ -176,6 +176,35 @@ services:
     depends_on:
       - product-postgresql
 
+  order-postgresql:
+    container_name: order-postgresql
+    restart: always
+    image: postgres:16
+    ports:
+      - '3108:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE_USER}
+    networks:
+      - order-postgresql-network
+    volumes:
+      - order-volume:/var/lib/postgresql/data
+
+  order-api:
+    container_name: order-api
+    restart: always
+    ports:
+      - 3008:3008
+    build:
+      context: .
+      dockerfile: ./apps/order-api/Dockerfile
+    env_file: ./apps/order-api/.env
+    networks:
+      - order-postgresql-network
+    depends_on:
+      - order-postgresql
+
 networks:
   user-postgresql-network:
     driver: bridge
@@ -187,6 +216,8 @@ networks:
     driver: bridge
   product-postgresql-network:
     driver: bridge
+  order-postgresql-network:
+    driver: bridge
 
 volumes:
   user-volume:
@@ -194,3 +225,4 @@ volumes:
   video-volume:
   business-volume:
   product-volume:
+  order-volume:
