@@ -44,6 +44,22 @@ services:
     depends_on:
       - user-postgresql
 
+  search-api:
+    container_name: search-api
+    restart: always
+    ports:
+      - 3003:3003
+    build:
+      context: .
+      dockerfile: ./apps/search-api/Dockerfile
+    env_file: ./apps/search-api/.env
+    networks:
+      - live-postgresql-network
+      - video-postgresql-network
+    depends_on:
+      - live-postgresql
+      - video-postgresql
+
   live-postgresql:
     container_name: live-postgresql
     restart: always

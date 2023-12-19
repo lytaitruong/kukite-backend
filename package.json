@@ -43,7 +43,15 @@
     "prisma:video-data": "npx prisma generate --schema libs/prisma-video/prisma/schema.prisma",
     "create:video-data": "npx prisma migrate dev --schema libs/prisma-video/prisma/schema.prisma",
     "deploy:video-data": "npx prisma migrate deploy --schema libs/prisma-video/prisma/schema.prisma",
-    "studio:video-data": "npx prisma studio deploy --schema libs/prisma-video/prisma/schema.prisma"
+    "studio:video-data": "npx prisma studio deploy --schema libs/prisma-video/prisma/schema.prisma",
+    "build:search-api": "nx build search-api",
+    "serve:search-api": "nx serve search-api",
+    "test:search-api": "nx test search-api",
+    "test:search-e2e": "nx e2e search-e2e",
+    "prisma:search-data": "npx prisma generate --schema libs/prisma-search/prisma/schema.prisma",
+    "create:search-data": "npx prisma migrate dev --schema libs/prisma-search/prisma/schema.prisma",
+    "deploy:search-data": "npx prisma migrate deploy --schema libs/prisma-search/prisma/schema.prisma",
+    "studio:search-data": "npx prisma studio deploy --schema libs/prisma-search/prisma/schema.prisma"
   },
   "private": true,
   "dependencies": {
