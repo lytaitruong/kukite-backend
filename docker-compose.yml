@@ -30,6 +30,20 @@ services:
     depends_on:
       - user-postgresql
 
+  auth-api:
+    container_name: auth-api
+    restart: always
+    ports:
+      - 3002:3002
+    build:
+      context: .
+      dockerfile: ./apps/auth-api/Dockerfile
+    env_file: ./apps/auth-api/.env
+    networks:
+      - user-postgresql-network
+    depends_on:
+      - user-postgresql
+
 networks:
   user-postgresql-network:
     driver: bridge
