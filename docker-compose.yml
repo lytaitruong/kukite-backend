@@ -263,6 +263,35 @@ services:
     depends_on:
       - notification-postgresql
 
+  campaign-postgresql:
+    container_name: campaign-postgresql
+    restart: always
+    image: postgres:16
+    ports:
+      - '3111:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE_USER}
+    networks:
+      - campaign-postgresql-network
+    volumes:
+      - campaign-volume:/var/lib/postgresql/data
+
+  campaign-api:
+    container_name: campaign-api
+    restart: always
+    ports:
+      - 3011:3011
+    build:
+      context: .
+      dockerfile: ./apps/campaign-api/Dockerfile
+    env_file: ./apps/campaign-api/.env
+    networks:
+      - campaign-postgresql-network
+    depends_on:
+      - campaign-postgresql
+
 networks:
   user-postgresql-network:
     driver: bridge
@@ -280,6 +309,8 @@ networks:
     driver: bridge
   notification-postgresql-network:
     driver: bridge
+  campaign-postgresql-network:
+    driver: bridge
 
 volumes:
   user-volume:
@@ -290,3 +321,4 @@ volumes:
   order-volume:
   payment-volume:
   notification-volume:
+  campaign-volume:
