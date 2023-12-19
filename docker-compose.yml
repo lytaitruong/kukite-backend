@@ -147,6 +147,35 @@ services:
     depends_on:
       - business-postgresql
 
+  product-postgresql:
+    container_name: product-postgresql
+    restart: always
+    image: postgres:16
+    ports:
+      - '3107:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE_USER}
+    networks:
+      - product-postgresql-network
+    volumes:
+      - product-volume:/var/lib/postgresql/data
+
+  product-api:
+    container_name: product-api
+    restart: always
+    ports:
+      - 3007:3007
+    build:
+      context: .
+      dockerfile: ./apps/product-api/Dockerfile
+    env_file: ./apps/product-api/.env
+    networks:
+      - product-postgresql-network
+    depends_on:
+      - product-postgresql
+
 networks:
   user-postgresql-network:
     driver: bridge
@@ -156,9 +185,12 @@ networks:
     driver: bridge
   business-postgresql-network:
     driver: bridge
+  product-postgresql-network:
+    driver: bridge
 
 volumes:
   user-volume:
   live-volume:
   video-volume:
   business-volume:
+  product-volume:
