@@ -12,7 +12,7 @@ RUN apt-get update \
 COPY . .
 
 RUN pnpm install \
-    && pnpm run generate:user-data \
+    && pnpm run prisma:user-data \
     && pnpm run build:user-api \
     && pnpm pkg delete scripts.prepare \
     && pnpm prune --prod

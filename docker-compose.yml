@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  user-postgresql:
+    container_name: user-postgresql
+    restart: always
+    image: postgres:16
+    ports:
+      - '3101:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE_USER}
+    networks:
+      - user-postgresql-network
+    volumes:
+      - user-volume:/var/lib/postgresql/data
+
+  user-api:
+    container_name: user-api
+    restart: always
+    ports:
+      - 3001:3001
+    build:
+      context: .
+      dockerfile: ./apps/user-api/Dockerfile
+    env_file: ./apps/user-api/.env
+    networks:
+      - user-postgresql-network
+    depends_on:
+      - user-postgresql
+
+networks:
+  user-postgresql-network:
+    driver: bridge
+
+volumes:
+  user-volume:
