@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/@prisma/payment"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_PAYMENT")
+}
+
+model Payment {
+  id String @id @default(cuid())
+
+  @@map("payments")
+}

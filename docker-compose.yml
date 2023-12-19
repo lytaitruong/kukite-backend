@@ -205,6 +205,35 @@ services:
     depends_on:
       - order-postgresql
 
+  payment-postgresql:
+    container_name: payment-postgresql
+    restart: always
+    image: postgres:16
+    ports:
+      - '3109:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE_USER}
+    networks:
+      - payment-postgresql-network
+    volumes:
+      - payment-volume:/var/lib/postgresql/data
+
+  payment-api:
+    container_name: payment-api
+    restart: always
+    ports:
+      - 3009:3009
+    build:
+      context: .
+      dockerfile: ./apps/payment-api/Dockerfile
+    env_file: ./apps/payment-api/.env
+    networks:
+      - payment-postgresql-network
+    depends_on:
+      - payment-postgresql
+
 networks:
   user-postgresql-network:
     driver: bridge
@@ -218,6 +247,8 @@ networks:
     driver: bridge
   order-postgresql-network:
     driver: bridge
+  payment-postgresql-network:
+    driver: bridge
 
 volumes:
   user-volume:
@@ -226,3 +257,4 @@ volumes:
   business-volume:
   product-volume:
   order-volume:
+  payment-volume:
