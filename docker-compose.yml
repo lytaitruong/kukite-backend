@@ -44,9 +44,41 @@ services:
     depends_on:
       - user-postgresql
 
+  live-postgresql:
+    container_name: live-postgresql
+    restart: always
+    image: postgres:16
+    ports:
+      - '3104:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE_USER}
+    networks:
+      - live-postgresql-network
+    volumes:
+      - live-volume:/var/lib/postgresql/data
+
+  live-api:
+    container_name: live-api
+    restart: always
+    ports:
+      - 3004:3004
+    build:
+      context: .
+      dockerfile: ./apps/live-api/Dockerfile
+    env_file: ./apps/live-api/.env
+    networks:
+      - live-postgresql-network
+    depends_on:
+      - live-postgresql
+
 networks:
   user-postgresql-network:
+    driver: bridge
+  live-postgresql-network:
     driver: bridge
 
 volumes:
   user-volume:
+  live-volume:

@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/@prisma/live"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_LIVE")
+}
+
+model Lives {
+  id String @id @default(cuid())
+
+  @@map("lives")
+}

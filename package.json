@@ -27,7 +27,15 @@
     "prisma:auth-data": "npx prisma generate --schema libs/prisma-auth/prisma/schema.prisma",
     "create:auth-data": "npx prisma migrate dev --schema libs/prisma-auth/prisma/schema.prisma",
     "deploy:auth-data": "npx prisma migrate deploy --schema libs/prisma-auth/prisma/schema.prisma",
-    "studio:auth-data": "npx prisma studio deploy --schema libs/prisma-auth/prisma/schema.prisma"
+    "studio:auth-data": "npx prisma studio deploy --schema libs/prisma-auth/prisma/schema.prisma",
+    "build:live-api": "nx build live-api",
+    "serve:live-api": "nx serve live-api",
+    "test:live-api": "nx test live-api",
+    "test:live-e2e": "nx e2e live-e2e",
+    "prisma:live-data": "npx prisma generate --schema libs/prisma-live/prisma/schema.prisma",
+    "create:live-data": "npx prisma migrate dev --schema libs/prisma-live/prisma/schema.prisma",
+    "deploy:live-data": "npx prisma migrate deploy --schema libs/prisma-live/prisma/schema.prisma",
+    "studio:live-data": "npx prisma studio deploy --schema libs/prisma-live/prisma/schema.prisma"
   },
   "private": true,
   "dependencies": {
